@@ -77,7 +77,7 @@ class Jar implements \ArrayAccess, \IteratorAggregate
      * Get the value for the item
      *
      * @param string $key Item key
-     * @return string|null Item value (Not null when offsetExists is true)
+     * @return string|null Item value (null if offsetExists is false)
      */
     public function offsetGet($key)
     {

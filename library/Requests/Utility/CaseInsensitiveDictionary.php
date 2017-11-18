@@ -53,7 +53,7 @@ class CaseInsensitiveDictionary implements \ArrayAccess, \IteratorAggregate
      * Get the value for the item
      *
      * @param string $key Item key
-     * @return string|null Item value (always a string if offsetExists is true)
+     * @return string|null Item value (null if offsetExists is false)
      */
     public function offsetGet($key)
     {
