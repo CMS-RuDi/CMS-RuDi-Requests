@@ -298,6 +298,8 @@ class cURL implements \Requests\Transport
     {
         $this->setup_handle($url, $headers, $data, $options);
 
+        $options['hooks']->dispatch('curl.before_send', array( &$this->handle ));
+
         if ( $options['filename'] !== false ) {
             $this->stream_handle = fopen($options['filename'], 'wb');
         }
