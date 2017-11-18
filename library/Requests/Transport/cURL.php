@@ -43,9 +43,9 @@ class cURL implements \Requests\Transport
     public $info;
 
     /**
-     * Version string
+     * cURL version number
      *
-     * @var long
+     * @var int
      */
     public $version;
 
@@ -229,7 +229,7 @@ class cURL implements \Requests\Transport
         $request['options']['hooks']->dispatch('curl.before_multi_exec', array( &$multihandle ));
 
         do {
-            $active = false;
+            $active = 0;
 
             do {
                 $status = curl_multi_exec($multihandle, $active);
@@ -418,7 +418,8 @@ class cURL implements \Requests\Transport
      *
      * @param string $response Response data from the body
      * @param array $options Request options
-     * @return string HTTP response data including headers
+     * @return string|false HTTP response data including headers. False if non-blocking.
+     * @throws \Requests\Exception
      */
     public function process_response($response, $options)
     {

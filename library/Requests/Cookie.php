@@ -522,7 +522,7 @@ class Cookie
      *
      * @codeCoverageIgnore
      * @deprecated Use {@see \Requests\Cookie::parse_from_headers}
-     * @return string
+     * @return array
      */
     public static function parseFromHeaders(\Requests\Response\Headers $headers)
     {

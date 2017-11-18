@@ -72,49 +72,49 @@ class IRI
     /**
      * Scheme
      *
-     * @var string
+     * @var string|null
      */
     protected $scheme = null;
 
     /**
      * User Information
      *
-     * @var string
+     * @var string|null
      */
     protected $iuserinfo = null;
 
     /**
      * ihost
      *
-     * @var string
+     * @var string|null
      */
     protected $ihost = null;
 
     /**
      * Port
      *
-     * @var string
+     * @var string|null
      */
     protected $port = null;
 
     /**
      * ipath
      *
-     * @var string
+     * @var string|null
      */
     protected $ipath = '';
 
     /**
      * iquery
      *
-     * @var string
+     * @var string|null
      */
     protected $iquery = null;
 
     /**
      * ifragment
      *
-     * @var string
+     * @var string|null
      */
     protected $ifragment = null;
 
@@ -255,9 +255,9 @@ class IRI
      *
      * Returns false if $base is not absolute, otherwise an IRI.
      *
-     * @param IRI|string $base (Absolute) Base IRI
-     * @param IRI|string $relative Relative IRI
-     * @return IRI|false
+     * @param \Requests\IRI|string $base (Absolute) Base IRI
+     * @param \Requests\IRI|string $relative Relative IRI
+     * @return \Requests\IRI|false
      */
     public static function absolutize($base, $relative)
     {
@@ -1011,7 +1011,7 @@ class IRI
     /**
      * Get the complete IRI
      *
-     * @return string
+     * @return string|false
      */
     protected function get_iri()
     {
@@ -1050,7 +1050,7 @@ class IRI
     /**
      * Get the complete iauthority
      *
-     * @return string
+     * @return string|null
      */
     protected function get_iauthority()
     {

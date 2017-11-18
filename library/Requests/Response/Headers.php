@@ -26,7 +26,7 @@ class Headers extends \Requests\Utility\CaseInsensitiveDictionary
      * Set-Cookie headers.
      *
      * @param string $key
-     * @return string Header value
+     * @return string|null Header value
      */
     public function offsetGet($key)
     {
@@ -66,7 +66,7 @@ class Headers extends \Requests\Utility\CaseInsensitiveDictionary
      * Get all values for a given header
      *
      * @param string $key
-     * @return array Header values
+     * @return array|null Header values
      */
     public function getValues($key)
     {
