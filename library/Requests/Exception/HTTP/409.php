@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Exception for 409 Conflict responses
  *
@@ -10,18 +11,21 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_409 extends Requests_Exception_HTTP {
-	/**
-	 * HTTP status code
-	 *
-	 * @var integer
-	 */
-	protected $code = 409;
+class Requests_Exception_HTTP_409 extends Requests_Exception_HTTP
+{
 
-	/**
-	 * Reason phrase
-	 *
-	 * @var string
-	 */
-	protected $reason = 'Conflict';
+    /**
+     * HTTP status code
+     *
+     * @var integer
+     */
+    protected $code = 409;
+
+    /**
+     * Reason phrase
+     *
+     * @var string
+     */
+    protected $reason = 'Conflict';
+
 }
