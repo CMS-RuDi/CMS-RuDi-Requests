@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Transport;
+
 /**
  * fsockopen HTTP transport
  *
@@ -13,7 +15,7 @@
  * @package Requests
  * @subpackage Transport
  */
-class Requests_Transport_fsockopen implements Requests_Transport
+class fsockopen implements \Requests\Transport
 {
 
     /**
@@ -48,8 +50,8 @@ class Requests_Transport_fsockopen implements Requests_Transport
     /**
      * Perform a request
      *
-     * @throws Requests_Exception On failure to connect to socket (`fsockopenerror`)
-     * @throws Requests_Exception On socket timeout (`timeout`)
+     * @throws \Requests\Exception On failure to connect to socket (`fsockopenerror`)
+     * @throws \Requests\Exception On socket timeout (`timeout`)
      *
      * @param string $url URL to request
      * @param array $headers Associative array of request headers
@@ -64,13 +66,13 @@ class Requests_Transport_fsockopen implements Requests_Transport
         $url_parts = parse_url($url);
 
         if ( empty($url_parts) ) {
-            throw new Requests_Exception('Invalid URL.', 'invalidurl', $url);
+            throw new \Requests\Exception('Invalid URL.', 'invalidurl', $url);
         }
 
         $host                     = $url_parts['host'];
         $context                  = stream_context_create();
         $verifyname               = false;
-        $case_insensitive_headers = new Requests_Utility_CaseInsensitiveDictionary($headers);
+        $case_insensitive_headers = new \Requests\Utility\CaseInsensitiveDictionary($headers);
 
         // HTTPS support
         if ( isset($url_parts['scheme']) && strtolower($url_parts['scheme']) === 'https' ) {
@@ -134,16 +136,16 @@ class Requests_Transport_fsockopen implements Requests_Transport
         restore_error_handler();
 
         if ( $verifyname && !$this->verify_certificate_from_context($host, $context) ) {
-            throw new Requests_Exception('SSL certificate did not match the requested domain name', 'ssl.no_match');
+            throw new \Requests\Exception('SSL certificate did not match the requested domain name', 'ssl.no_match');
         }
 
         if ( !$socket ) {
             if ( $errno === 0 ) {
                 // Connection issue
-                throw new Requests_Exception(rtrim($this->connect_error), 'fsockopen.connect_error');
+                throw new \Requests\Exception(rtrim($this->connect_error), 'fsockopen.connect_error');
             }
 
-            throw new Requests_Exception($errstr, 'fsockopenerror', null, $errno);
+            throw new \Requests\Exception($errstr, 'fsockopenerror', null, $errno);
         }
 
         $data_format = $options['data_format'];
@@ -253,7 +255,7 @@ class Requests_Transport_fsockopen implements Requests_Transport
             $this->info = stream_get_meta_data($socket);
 
             if ( $this->info['timed_out'] ) {
-                throw new Requests_Exception('fsocket timed out', 'timeout');
+                throw new \Requests\Exception('fsocket timed out', 'timeout');
             }
 
             $block = fread($socket, Requests::BUFFER_SIZE);
@@ -314,9 +316,9 @@ class Requests_Transport_fsockopen implements Requests_Transport
     /**
      * Send multiple requests simultaneously
      *
-     * @param array $requests Request data (array of 'url', 'headers', 'data', 'options') as per {@see Requests_Transport::request}
+     * @param array $requests Request data (array of 'url', 'headers', 'data', 'options') as per {@see \Requests\Transport::request}
      * @param array $options Global options, see {@see Requests::response()} for documentation
-     * @return array Array of Requests_Response objects (may contain Requests_Exception or string responses as well)
+     * @return array Array of \Requests\Response objects (may contain \Requests\Exception or string responses as well)
      */
     public function request_multiple($requests, $options)
     {
@@ -330,7 +332,7 @@ class Requests_Transport_fsockopen implements Requests_Transport
 
                 $request['options']['hooks']->dispatch('transport.internal.parse_response', array( &$responses[$id], $request ));
             }
-            catch ( Requests_Exception $e ) {
+            catch ( \Requests\Exception $e ) {
                 $responses[$id] = $e;
             }
 
@@ -422,8 +424,8 @@ class Requests_Transport_fsockopen implements Requests_Transport
      *
      * @see https://tools.ietf.org/html/rfc2818#section-3.1 RFC2818, Section 3.1
      *
-     * @throws Requests_Exception On failure to connect via TLS (`fsockopen.ssl.connect_error`)
-     * @throws Requests_Exception On not obtaining a match for the host (`fsockopen.ssl.no_match`)
+     * @throws \Requests\Exception On failure to connect via TLS (`fsockopen.ssl.connect_error`)
+     * @throws \Requests\Exception On not obtaining a match for the host (`fsockopen.ssl.no_match`)
      * @param string $host Host name to verify against
      * @param resource $context Stream context
      * @return bool
@@ -435,12 +437,12 @@ class Requests_Transport_fsockopen implements Requests_Transport
         // If we don't have SSL options, then we couldn't make the connection at
         // all
         if ( empty($meta) || empty($meta['ssl']) || empty($meta['ssl']['peer_certificate']) ) {
-            throw new Requests_Exception(rtrim($this->connect_error), 'ssl.connect_error');
+            throw new \Requests\Exception(rtrim($this->connect_error), 'ssl.connect_error');
         }
 
         $cert = openssl_x509_parse($meta['ssl']['peer_certificate']);
 
-        return Requests_SSL::verify_certificate($host, $cert);
+        return \Requests\SSL::verify_certificate($host, $cert);
     }
 
     /**

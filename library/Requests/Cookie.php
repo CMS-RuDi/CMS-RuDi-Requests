@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests;
+
 /**
  * Cookie storage object
  *
@@ -13,7 +15,7 @@
  * @package Requests
  * @subpackage Cookies
  */
-class Requests_Cookie
+class Cookie
 {
 
     /**
@@ -36,7 +38,7 @@ class Requests_Cookie
      * Valid keys are (currently) path, domain, expires, max-age, secure and
      * httponly.
      *
-     * @var Requests_Utility_CaseInsensitiveDictionary|array Array-like object
+     * @var \Requests\Utility\CaseInsensitiveDictionary|array Array-like object
      */
     public $attributes = array();
 
@@ -65,7 +67,7 @@ class Requests_Cookie
      *
      * @param string $name
      * @param string $value
-     * @param array|Requests_Utility_CaseInsensitiveDictionary $attributes Associative array of attribute data
+     * @param array|\Requests\Utility\CaseInsensitiveDictionary $attributes Associative array of attribute data
      */
     public function __construct($name, $value, $attributes = array(), $flags = array(), $reference_time = null)
     {
@@ -121,10 +123,10 @@ class Requests_Cookie
     /**
      * Check if a cookie is valid for a given URI
      *
-     * @param Requests_IRI $uri URI to check
+     * @param \Requests\IRI $uri URI to check
      * @return boolean Whether the cookie is valid for the given URI
      */
-    public function uri_matches(Requests_IRI $uri)
+    public function uri_matches(\Requests\IRI $uri)
     {
         if ( !$this->domain_matches($uri->host) ) {
             return false;
@@ -330,7 +332,7 @@ class Requests_Cookie
      * Format a cookie for a Cookie header
      *
      * @codeCoverageIgnore
-     * @deprecated Use {@see Requests_Cookie::format_for_header}
+     * @deprecated Use {@see \Requests\Cookie::format_for_header}
      * @return string
      */
     public function formatForHeader()
@@ -373,7 +375,7 @@ class Requests_Cookie
      * Format a cookie for a Set-Cookie header
      *
      * @codeCoverageIgnore
-     * @deprecated Use {@see Requests_Cookie::format_for_set_cookie}
+     * @deprecated Use {@see \Requests\Cookie::format_for_set_cookie}
      * @return string
      */
     public function formatForSetCookie()
@@ -399,7 +401,7 @@ class Requests_Cookie
      * specifies some of this handling, but not in a thorough manner.
      *
      * @param string Cookie header value (from a Set-Cookie header)
-     * @return Requests_Cookie Parsed cookie object
+     * @return \Requests\Cookie Parsed cookie object
      */
     public static function parse($string, $name = '', $reference_time = null)
     {
@@ -426,7 +428,7 @@ class Requests_Cookie
         $value = trim($value);
 
         // Attribute key are handled case-insensitively
-        $attributes = new Requests_Utility_CaseInsensitiveDictionary();
+        $attributes = new \Requests\Utility\CaseInsensitiveDictionary();
 
         if ( !empty($parts) ) {
             foreach ( $parts as $part ) {
@@ -444,18 +446,18 @@ class Requests_Cookie
             }
         }
 
-        return new Requests_Cookie($name, $value, $attributes, array(), $reference_time);
+        return new \Requests\Cookie($name, $value, $attributes, array(), $reference_time);
     }
 
     /**
      * Parse all Set-Cookie headers from request headers
      *
-     * @param Requests_Response_Headers $headers Headers to parse from
-     * @param Requests_IRI|null $origin URI for comparing cookie origins
+     * @param \Requests\Response_Headers $headers Headers to parse from
+     * @param \Requests\IRI|null $origin URI for comparing cookie origins
      * @param int|null $time Reference time for expiration calculation
      * @return array
      */
-    public static function parse_from_headers(Requests_Response_Headers $headers, Requests_IRI $origin = null, $time = null)
+    public static function parse_from_headers(\Requests\Response\Headers $headers, \Requests\IRI $origin = null, $time = null)
     {
         $cookie_headers = $headers->getValues('Set-Cookie');
 
@@ -519,10 +521,10 @@ class Requests_Cookie
      * Parse all Set-Cookie headers from request headers
      *
      * @codeCoverageIgnore
-     * @deprecated Use {@see Requests_Cookie::parse_from_headers}
+     * @deprecated Use {@see \Requests\Cookie::parse_from_headers}
      * @return string
      */
-    public static function parseFromHeaders(Requests_Response_Headers $headers)
+    public static function parseFromHeaders(\Requests\Response\Headers $headers)
     {
         return self::parse_from_headers($headers);
     }

@@ -10,7 +10,7 @@ default parameters for these.
 Let's simulate communicating with GitHub.
 
 ```php
-$session = new Requests_Session('https://api.github.com/');
+$session = new \Requests\Session('https://api.github.com/');
 $session->headers['X-ContactAuthor'] = 'rmccue';
 $session->useragent = 'My-Awesome-App';
 

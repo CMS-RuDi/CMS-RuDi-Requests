@@ -4,7 +4,7 @@ class RequestsTest_Requests extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testInvalidProtocol()
     {
@@ -41,7 +41,7 @@ class RequestsTest_Requests extends PHPUnit_Framework_TestCase
         );
 
         $response              = Requests::get('http://example.com/', array(), $options);
-        $expected              = new Requests_Response_Headers();
+        $expected              = new \Requests\Response\Headers();
         $expected['host']      = 'localhost,ambiguous';
         $expected['nospace']   = 'here';
         $expected['muchspace'] = 'there';
@@ -109,7 +109,7 @@ class RequestsTest_Requests extends PHPUnit_Framework_TestCase
      * We do not support HTTP/0.9. If this is really an issue for you, file a
      * new issue, and update your server/proxy to support a proper protocol.
      *
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testInvalidProtocolVersion()
     {
@@ -126,7 +126,7 @@ class RequestsTest_Requests extends PHPUnit_Framework_TestCase
     /**
      * HTTP/0.9 also appears to use a single CRLF instead of two
      *
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testSingleCRLFSeparator()
     {
@@ -141,7 +141,7 @@ class RequestsTest_Requests extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testInvalidStatus()
     {
@@ -170,7 +170,7 @@ class RequestsTest_Requests extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testTimeoutException()
     {

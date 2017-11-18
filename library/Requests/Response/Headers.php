@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Response;
+
 /**
  * Case-insensitive dictionary, suitable for HTTP headers
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Response_Headers extends Requests_Utility_CaseInsensitiveDictionary
+class Headers extends \Requests\Utility\CaseInsensitiveDictionary
 {
 
     /**
@@ -40,7 +42,7 @@ class Requests_Response_Headers extends Requests_Utility_CaseInsensitiveDictiona
     /**
      * Set the given item
      *
-     * @throws Requests_Exception On attempting to use dictionary as list (`invalidset`)
+     * @throws \Requests\Exception On attempting to use dictionary as list (`invalidset`)
      *
      * @param string $key Item name
      * @param string $value Item value
@@ -48,7 +50,7 @@ class Requests_Response_Headers extends Requests_Utility_CaseInsensitiveDictiona
     public function offsetSet($key, $value)
     {
         if ( $key === null ) {
-            throw new Requests_Exception('Object is a dictionary, not a list', 'invalidset');
+            throw new \Requests\Exception('Object is a dictionary, not a list', 'invalidset');
         }
 
         $key = strtolower($key);
@@ -99,11 +101,11 @@ class Requests_Response_Headers extends Requests_Utility_CaseInsensitiveDictiona
      * Get an iterator for the data
      *
      * Converts the internal
-     * @return ArrayIterator
+     * @return \ArrayIterator
      */
     public function getIterator()
     {
-        return new Requests_Utility_FilteredIterator($this->data, array( $this, 'flatten' ));
+        return new \Requests\Utility\FilteredIterator($this->data, array( $this, 'flatten' ));
     }
 
 }

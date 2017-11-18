@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests;
+
 /**
  * IRI parser/serialiser/normaliser
  *
@@ -64,7 +66,7 @@
  * @property string $fragment Fragment, formatted for a URI (after '#')
  * @property string $ifragment Fragment part of the IRI (after '#')
  */
-class Requests_IRI
+class IRI
 {
 
     /**
@@ -259,8 +261,8 @@ class Requests_IRI
      */
     public static function absolutize($base, $relative)
     {
-        if ( !($relative instanceof Requests_IRI) ) {
-            $relative = new Requests_IRI($relative);
+        if ( !($relative instanceof \Requests\IRI) ) {
+            $relative = new \Requests\IRI($relative);
         }
         if ( !$relative->is_valid() ) {
             return false;
@@ -269,8 +271,8 @@ class Requests_IRI
             return clone $relative;
         }
 
-        if ( !($base instanceof Requests_IRI) ) {
-            $base = new Requests_IRI($base);
+        if ( !($base instanceof \Requests\IRI) ) {
+            $base = new \Requests\IRI($base);
         }
         if ( $base->scheme === null || !$base->is_valid() ) {
             return false;
@@ -282,7 +284,7 @@ class Requests_IRI
                 $target->scheme = $base->scheme;
             }
             else {
-                $target            = new Requests_IRI;
+                $target            = new \Requests\IRI();
                 $target->scheme    = $base->scheme;
                 $target->iuserinfo = $base->iuserinfo;
                 $target->ihost     = $base->ihost;
@@ -334,7 +336,7 @@ class Requests_IRI
         $iri       = trim($iri, "\x20\x09\x0A\x0C\x0D");
         $has_match = preg_match('/^((?P<scheme>[^:\/?#]+):)?(\/\/(?P<authority>[^\/?#]*))?(?P<path>[^?#]*)(\?(?P<query>[^#]*))?(#(?P<fragment>.*))?$/', $iri, $match);
         if ( !$has_match ) {
-            throw new Requests_Exception('Cannot parse supplied IRI', 'iri.cannot_parse', $iri);
+            throw new \Requests\Exception('Cannot parse supplied IRI', 'iri.cannot_parse', $iri);
         }
 
         if ( $match[1] === '' ) {
@@ -855,8 +857,8 @@ class Requests_IRI
             return true;
         }
         if ( substr($ihost, 0, 1) === '[' && substr($ihost, -1) === ']' ) {
-            if ( Requests_IPv6::check_ipv6(substr($ihost, 1, -1)) ) {
-                $this->ihost = '[' . Requests_IPv6::compress(substr($ihost, 1, -1)) . ']';
+            if ( \Requests\IPv6::check_ipv6(substr($ihost, 1, -1)) ) {
+                $this->ihost = '[' . \Requests\IPv6::compress(substr($ihost, 1, -1)) . ']';
             }
             else {
                 $this->ihost = null;

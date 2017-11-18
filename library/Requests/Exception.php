@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests;
+
 /**
  * Exception for HTTP requests
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception extends Exception
+class Exception extends \Exception
 {
 
     /**

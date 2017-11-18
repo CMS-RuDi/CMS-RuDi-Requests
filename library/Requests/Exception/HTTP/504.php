@@ -1,4 +1,7 @@
 <?php
+
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 504 Gateway Timeout responses
  *
@@ -10,18 +13,21 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_504 extends Requests_Exception_HTTP {
-	/**
-	 * HTTP status code
-	 *
-	 * @var integer
-	 */
-	protected $code = 504;
+class _504 extends \Requests\Exception\HTTP
+{
 
-	/**
-	 * Reason phrase
-	 *
-	 * @var string
-	 */
-	protected $reason = 'Gateway Timeout';
+    /**
+     * HTTP status code
+     *
+     * @var integer
+     */
+    protected $code = 504;
+
+    /**
+     * Reason phrase
+     *
+     * @var string
+     */
+    protected $reason = 'Gateway Timeout';
+
 }

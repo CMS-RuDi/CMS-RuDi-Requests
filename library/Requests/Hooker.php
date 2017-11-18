@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests;
+
 /**
  * Event dispatcher
  *
@@ -13,7 +15,7 @@
  * @package Requests
  * @subpackage Utilities
  */
-interface Requests_Hooker
+interface Hooker
 {
 
     /**

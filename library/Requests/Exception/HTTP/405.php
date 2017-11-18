@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 405 Method Not Allowed responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_405 extends Requests_Exception_HTTP
+class _405 extends \Requests\Exception\HTTP
 {
 
     /**

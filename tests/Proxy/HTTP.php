@@ -23,8 +23,8 @@ class RequestsTest_Proxy_HTTP extends PHPUnit_Framework_TestCase
     public function transportProvider()
     {
         return array(
-            array( 'Requests_Transport_cURL' ),
-            array( 'Requests_Transport_fsockopen' ),
+            array( '\\Requests\\Transport\\cURL' ),
+            array( '\\Requests\\Transport\\fsockopen' ),
         );
     }
 
@@ -68,7 +68,7 @@ class RequestsTest_Proxy_HTTP extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider transportProvider
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testConnectInvalidParameters($transport)
     {
@@ -90,7 +90,7 @@ class RequestsTest_Proxy_HTTP extends PHPUnit_Framework_TestCase
         $this->checkProxyAvailable();
 
         $options = array(
-            'proxy'     => new Requests_Proxy_HTTP(REQUESTS_HTTP_PROXY),
+            'proxy'     => new \Requests\Proxy\HTTP(REQUESTS_HTTP_PROXY),
             'transport' => $transport,
         );
 

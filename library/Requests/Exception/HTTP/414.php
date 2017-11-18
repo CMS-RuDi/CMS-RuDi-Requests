@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 414 Request-URI Too Large responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_414 extends Requests_Exception_HTTP
+class _414 extends \Requests\Exception\HTTP
 {
 
     /**

@@ -1,4 +1,7 @@
 <?php
+
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 501 Not Implemented responses
  *
@@ -10,18 +13,21 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_501 extends Requests_Exception_HTTP {
-	/**
-	 * HTTP status code
-	 *
-	 * @var integer
-	 */
-	protected $code = 501;
+class _501 extends \Requests\Exception\HTTP
+{
 
-	/**
-	 * Reason phrase
-	 *
-	 * @var string
-	 */
-	protected $reason = 'Not Implemented';
+    /**
+     * HTTP status code
+     *
+     * @var integer
+     */
+    protected $code = 501;
+
+    /**
+     * Reason phrase
+     *
+     * @var string
+     */
+    protected $reason = 'Not Implemented';
+
 }

@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Utility;
+
 /**
  * Case-insensitive dictionary, suitable for HTTP headers
  *
@@ -13,7 +15,7 @@
  * @package Requests
  * @subpackage Utilities
  */
-class Requests_Utility_CaseInsensitiveDictionary implements ArrayAccess, IteratorAggregate
+class CaseInsensitiveDictionary implements \ArrayAccess, \IteratorAggregate
 {
 
     /**
@@ -67,7 +69,7 @@ class Requests_Utility_CaseInsensitiveDictionary implements ArrayAccess, Iterato
     /**
      * Set the given item
      *
-     * @throws Requests_Exception On attempting to use dictionary as list (`invalidset`)
+     * @throws \Requests\Exception On attempting to use dictionary as list (`invalidset`)
      *
      * @param string $key Item name
      * @param string $value Item value
@@ -75,7 +77,7 @@ class Requests_Utility_CaseInsensitiveDictionary implements ArrayAccess, Iterato
     public function offsetSet($key, $value)
     {
         if ( $key === null ) {
-            throw new Requests_Exception('Object is a dictionary, not a list', 'invalidset');
+            throw new \Requests\Exception('Object is a dictionary, not a list', 'invalidset');
         }
 
         $key              = strtolower($key);
@@ -95,11 +97,11 @@ class Requests_Utility_CaseInsensitiveDictionary implements ArrayAccess, Iterato
     /**
      * Get an iterator for the data
      *
-     * @return ArrayIterator
+     * @return \ArrayIterator
      */
     public function getIterator()
     {
-        return new ArrayIterator($this->data);
+        return new \ArrayIterator($this->data);
     }
 
     /**

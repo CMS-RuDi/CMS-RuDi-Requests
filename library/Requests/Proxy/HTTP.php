@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Proxy;
+
 /**
  * HTTP Proxy connection interface
  *
@@ -17,7 +19,7 @@
  * @subpackage Proxy
  * @since 1.6
  */
-class Requests_Proxy_HTTP implements Requests_Proxy
+class HTTP implements \Requests\Proxy
 {
 
     /**
@@ -54,7 +56,7 @@ class Requests_Proxy_HTTP implements Requests_Proxy
      * Constructor
      *
      * @since 1.6
-     * @throws Requests_Exception On incorrect number of arguments (`authbasicbadargs`)
+     * @throws \Requests\Exception On incorrect number of arguments (`authbasicbadargs`)
      * @param array|null $args Array of user and password. Must have exactly two elements
      */
     public function __construct($args = null)
@@ -71,7 +73,7 @@ class Requests_Proxy_HTTP implements Requests_Proxy
                 $this->use_authentication = true;
             }
             else {
-                throw new Requests_Exception('Invalid number of arguments', 'proxyhttpbadargs');
+                throw new \Requests\Exception('Invalid number of arguments', 'proxyhttpbadargs');
             }
         }
     }
@@ -84,9 +86,9 @@ class Requests_Proxy_HTTP implements Requests_Proxy
      * @see fsockopen_remote_socket
      * @see fsockopen_remote_host_path
      * @see fsockopen_header
-     * @param Requests_Hooks $hooks Hook system
+     * @param \Requests\Hooks $hooks Hook system
      */
-    public function register(Requests_Hooks &$hooks)
+    public function register(\Requests\Hooks &$hooks)
     {
         $hooks->register('curl.before_send', array( &$this, 'curl_before_send' ));
 

@@ -43,7 +43,7 @@ Changelog
 
   (props @rmccue, [#172][gh-172])
 
-- Support a Requests_Proxy_HTTP() instance for the proxy setting.
+- Support a \Requests\Proxy\HTTP() instance for the proxy setting.
 
   (props @ocean90, [#223][gh-223])
 

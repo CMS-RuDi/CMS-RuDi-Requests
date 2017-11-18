@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 401 Unauthorized responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_401 extends Requests_Exception_HTTP
+class _401 extends \Requests\Exception\HTTP
 {
 
     /**

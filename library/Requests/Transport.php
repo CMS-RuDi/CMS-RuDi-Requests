@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests;
+
 /**
  * Base HTTP transport
  *
@@ -13,7 +15,7 @@
  * @package Requests
  * @subpackage Transport
  */
-interface Requests_Transport
+interface Transport
 {
 
     /**
@@ -30,9 +32,9 @@ interface Requests_Transport
     /**
      * Send multiple requests simultaneously
      *
-     * @param array $requests Request data (array of 'url', 'headers', 'data', 'options') as per {@see Requests_Transport::request}
+     * @param array $requests Request data (array of 'url', 'headers', 'data', 'options') as per {@see \Requests\Transport::request}
      * @param array $options Global options, see {@see Requests::response()} for documentation
-     * @return array Array of Requests_Response objects (may contain Requests_Exception or string responses as well)
+     * @return array Array of \Requests\Response objects (may contain \Requests\Exception or string responses as well)
      */
     public function request_multiple($requests, $options);
 

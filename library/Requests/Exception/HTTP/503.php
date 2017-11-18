@@ -1,4 +1,7 @@
 <?php
+
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 503 Service Unavailable responses
  *
@@ -10,18 +13,21 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_503 extends Requests_Exception_HTTP {
-	/**
-	 * HTTP status code
-	 *
-	 * @var integer
-	 */
-	protected $code = 503;
+class _503 extends \Requests\Exception\HTTP
+{
 
-	/**
-	 * Reason phrase
-	 *
-	 * @var string
-	 */
-	protected $reason = 'Service Unavailable';
+    /**
+     * HTTP status code
+     *
+     * @var integer
+     */
+    protected $code = 503;
+
+    /**
+     * Reason phrase
+     *
+     * @var string
+     */
+    protected $reason = 'Service Unavailable';
+
 }

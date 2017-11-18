@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 400 Bad Request responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_400 extends Requests_Exception_HTTP
+class _400 extends \Requests\Exception\HTTP
 {
 
     /**

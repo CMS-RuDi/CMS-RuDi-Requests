@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests;
+
 /**
  * SSL utilities for Requests
  *
@@ -15,7 +17,7 @@
  * @package Requests
  * @subpackage Utilities
  */
-class Requests_SSL
+class SSL
 {
 
     /**
@@ -27,7 +29,7 @@ class Requests_SSL
      *
      * @see https://tools.ietf.org/html/rfc2818#section-3.1 RFC2818, Section 3.1
      *
-     * @throws Requests_Exception On not obtaining a match for the host (`fsockopen.ssl.no_match`)
+     * @throws \Requests\Exception On not obtaining a match for the host (`fsockopen.ssl.no_match`)
      * @param string $host Host name to verify against
      * @param array $cert Certificate data from openssl_x509_parse()
      * @return bool

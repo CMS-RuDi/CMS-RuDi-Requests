@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 416 Requested Range Not Satisfiable responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_416 extends Requests_Exception_HTTP
+class _416 extends \Requests\Exception\HTTP
 {
 
     /**

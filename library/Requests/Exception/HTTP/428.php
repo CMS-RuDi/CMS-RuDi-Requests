@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 428 Precondition Required responses
  *
@@ -13,7 +15,7 @@
  * @see https://tools.ietf.org/html/rfc6585
  * @package Requests
  */
-class Requests_Exception_HTTP_428 extends Requests_Exception_HTTP
+class _428 extends \Requests\Exception\HTTP
 {
 
     /**

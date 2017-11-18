@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests;
+
 /**
  * Session handler for persistent requests and default parameters
  *
@@ -18,7 +20,7 @@
  * @package Requests
  * @subpackage Session Handler
  */
-class Requests_Session
+class Session
 {
 
     /**
@@ -74,7 +76,7 @@ class Requests_Session
         $this->options = $options;
 
         if ( empty($this->options['cookies']) ) {
-            $this->options['cookies'] = new Requests_Cookie_Jar();
+            $this->options['cookies'] = new \Requests\Cookie\Jar();
         }
     }
 
@@ -131,7 +133,7 @@ class Requests_Session
      * @param string $url
      * @param array $headers
      * @param array $options
-     * @return Requests_Response
+     * @return \Requests\Response
      */
 
     /**
@@ -166,7 +168,7 @@ class Requests_Session
      * @param array $headers
      * @param array $data
      * @param array $options
-     * @return Requests_Response
+     * @return \Requests\Response
      */
 
     /**
@@ -208,14 +210,14 @@ class Requests_Session
      *
      * @see Requests::request()
      *
-     * @throws Requests_Exception On invalid URLs (`nonhttp`)
+     * @throws \Requests\Exception On invalid URLs (`nonhttp`)
      *
      * @param string $url URL to request
      * @param array $headers Extra headers to send with the request
      * @param array|null $data Data to send either as a query string for GET/HEAD requests, or in the body for POST requests
      * @param string $type HTTP request type (use Requests constants)
      * @param array $options Options for the request (see {@see Requests::request})
-     * @return Requests_Response
+     * @return \Requests\Response
      */
     public function request($url, $headers = array(), $data = array(), $type = Requests::GET, $options = array())
     {
@@ -231,7 +233,7 @@ class Requests_Session
      *
      * @param array $requests Requests data (see {@see Requests::request_multiple})
      * @param array $options Global and default options (see {@see Requests::request})
-     * @return array Responses (either Requests_Response or a Requests_Exception object)
+     * @return array Responses (either \Requests\Response or a \Requests\Exception object)
      */
     public function request_multiple($requests, $options = array())
     {
@@ -257,7 +259,7 @@ class Requests_Session
     protected function merge_request($request, $merge_options = true)
     {
         if ( $this->url !== null ) {
-            $request['url'] = Requests_IRI::absolutize($this->url, $request['url']);
+            $request['url'] = \Requests\IRI::absolutize($this->url, $request['url']);
             $request['url'] = $request['url']->uri;
         }
 

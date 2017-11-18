@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 418 I'm A Teapot responses
  *
@@ -13,7 +15,7 @@
  * @see https://tools.ietf.org/html/rfc2324
  * @package Requests
  */
-class Requests_Exception_HTTP_418 extends Requests_Exception_HTTP
+class _418 extends \Requests\Exception\HTTP
 {
 
     /**

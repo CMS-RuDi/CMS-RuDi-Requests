@@ -1,4 +1,7 @@
 <?php
+
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 500 Internal Server Error responses
  *
@@ -10,18 +13,21 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_500 extends Requests_Exception_HTTP {
-	/**
-	 * HTTP status code
-	 *
-	 * @var integer
-	 */
-	protected $code = 500;
+class _500 extends \Requests\Exception\HTTP
+{
 
-	/**
-	 * Reason phrase
-	 *
-	 * @var string
-	 */
-	protected $reason = 'Internal Server Error';
+    /**
+     * HTTP status code
+     *
+     * @var integer
+     */
+    protected $code = 500;
+
+    /**
+     * Reason phrase
+     *
+     * @var string
+     */
+    protected $reason = 'Internal Server Error';
+
 }

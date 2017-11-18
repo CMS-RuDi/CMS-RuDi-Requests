@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception;
+
 /**
  * Exception based on HTTP response
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP extends Requests_Exception
+class HTTP extends \Requests\Exception
 {
 
     /**
@@ -64,16 +66,16 @@ class Requests_Exception_HTTP extends Requests_Exception
     public static function get_class($code)
     {
         if ( !$code ) {
-            return 'Requests_Exception_HTTP_Unknown';
+            return '\\Requests\\Exception\\HTTP\\Unknown';
         }
 
-        $class = sprintf('Requests_Exception_HTTP_%d', $code);
+        $class = sprintf('\\Requests\\Exception\\HTTP\\_%d', $code);
 
         if ( class_exists($class) ) {
             return $class;
         }
 
-        return 'Requests_Exception_HTTP_Unknown';
+        return '\\Requests\\Exception\\HTTP\\Unknown';
     }
 
 }

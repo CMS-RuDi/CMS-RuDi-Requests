@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 409 Conflict responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_409 extends Requests_Exception_HTTP
+class _409 extends \Requests\Exception\HTTP
 {
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 415 Unsupported Media Type responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_415 extends Requests_Exception_HTTP
+class _415 extends \Requests\Exception\HTTP
 {
 
     /**

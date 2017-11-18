@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 305 Use Proxy responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_305 extends Requests_Exception_HTTP
+class _305 extends \Requests\Exception\HTTP
 {
 
     /**

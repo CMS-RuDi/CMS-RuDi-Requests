@@ -7,7 +7,7 @@ include('../library/Requests.php');
 Requests::register_autoloader();
 
 // Say you need to fake a login cookie
-$c = new Requests_Cookie('login_uid', 'something');
+$c = new \Requests\Cookie('login_uid', 'something');
 
 // Now let's make a request!
 $request = Requests::get('http://httpbin.org/cookies', array( 'Cookie' => $c->formatForHeader() ));

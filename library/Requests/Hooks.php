@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests;
+
 /**
  * Handles adding and dispatching events
  *
@@ -13,7 +15,7 @@
  * @package Requests
  * @subpackage Utilities
  */
-class Requests_Hooks implements Requests_Hooker
+class Hooks implements Hooker
 {
 
     /**

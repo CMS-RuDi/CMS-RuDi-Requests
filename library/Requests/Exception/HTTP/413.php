@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 413 Request Entity Too Large responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_413 extends Requests_Exception_HTTP
+class _413 extends \Requests\Exception\HTTP
 {
 
     /**

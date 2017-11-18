@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Auth;
+
 /**
  * Basic Authentication provider
  *
@@ -16,7 +18,7 @@
  * @package Requests
  * @subpackage Authentication
  */
-class Requests_Auth_Basic implements Requests_Auth
+class Basic implements \Requests\Auth
 {
 
     /**
@@ -36,14 +38,14 @@ class Requests_Auth_Basic implements Requests_Auth
     /**
      * Constructor
      *
-     * @throws Requests_Exception On incorrect number of arguments (`authbasicbadargs`)
+     * @throws \Requests\Exception On incorrect number of arguments (`authbasicbadargs`)
      * @param array|null $args Array of user and password. Must have exactly two elements
      */
     public function __construct($args = null)
     {
         if ( is_array($args) ) {
             if ( count($args) !== 2 ) {
-                throw new Requests_Exception('Invalid number of arguments', 'authbasicbadargs');
+                throw new \Requests\Exception('Invalid number of arguments', 'authbasicbadargs');
             }
 
             list($this->user, $this->pass) = $args;
@@ -55,9 +57,9 @@ class Requests_Auth_Basic implements Requests_Auth
      *
      * @see curl_before_send
      * @see fsockopen_header
-     * @param Requests_Hooks $hooks Hook system
+     * @param \Requests\Hooks $hooks Hook system
      */
-    public function register(Requests_Hooks &$hooks)
+    public function register(\Requests\Hooks &$hooks)
     {
         $hooks->register('curl.before_send', array( &$this, 'curl_before_send' ));
         $hooks->register('fsockopen.after_headers', array( &$this, 'fsockopen_header' ));

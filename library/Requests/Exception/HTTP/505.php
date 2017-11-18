@@ -1,4 +1,7 @@
 <?php
+
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 505 HTTP Version Not Supported responses
  *
@@ -10,18 +13,21 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_505 extends Requests_Exception_HTTP {
-	/**
-	 * HTTP status code
-	 *
-	 * @var integer
-	 */
-	protected $code = 505;
+class _505 extends \Requests\Exception\HTTP
+{
 
-	/**
-	 * Reason phrase
-	 *
-	 * @var string
-	 */
-	protected $reason = 'HTTP Version Not Supported';
+    /**
+     * HTTP status code
+     *
+     * @var integer
+     */
+    protected $code = 505;
+
+    /**
+     * Reason phrase
+     *
+     * @var string
+     */
+    protected $reason = 'HTTP Version Not Supported';
+
 }

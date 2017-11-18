@@ -1,6 +1,8 @@
 <?php
 
-class Requests_Exception_Transport extends Requests_Exception
+namespace Requests\Exception;
+
+class Transport extends \Requests\Exception
 {
 
 }

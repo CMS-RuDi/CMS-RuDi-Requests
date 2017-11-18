@@ -3,7 +3,7 @@ Hooks
 Requests has a hook system that you can use to manipulate parts of the request
 process along with internal transport hooks.
 
-Check out the [API documentation for `Requests_Hooks`][requests_hooks] for more
+Check out the [API documentation for `\Requests\Hooks`][requests_hooks] for more
 information on how to use the hook system.
 
 Available Hooks
@@ -26,7 +26,7 @@ Available Hooks
 
     Alter the response object before it's returned to the user
 
-    Parameters: `Requests_Response &$return`
+    Parameters: `\Requests\Response &$return`
 
 * `curl.before_request`
 
@@ -85,11 +85,11 @@ Authentication guide][authentication-custom] instead.
 
 [authentication-custom]: authentication-custom.md
 
-In order to register your own hooks, you need to instantiate `Requests_hooks`
+In order to register your own hooks, you need to instantiate `\Requests\Hooks`
 and pass this in via the 'hooks' option.
 
 ```php
-$hooks = new Requests_Hooks();
+$hooks = new \Requests\Hooks();
 $hooks->register('requests.after_request', 'mycallback');
 
 $request = Requests::get('http://httpbin.org/get', array(), array('hooks' => $hooks));

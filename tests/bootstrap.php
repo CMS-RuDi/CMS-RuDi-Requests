@@ -47,7 +47,7 @@ function httpbin($suffix = '', $ssl = false)
     return rtrim($host, '/') . '/' . ltrim($suffix, '/');
 }
 
-class MockTransport implements Requests_Transport
+class MockTransport implements \Requests\Transport
 {
 
     public $code             = 200;
@@ -145,7 +145,7 @@ class MockTransport implements Requests_Transport
 
 }
 
-class RawTransport implements Requests_Transport
+class RawTransport implements \Requests\Transport
 {
 
     public $data = '';

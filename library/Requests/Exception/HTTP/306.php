@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 306 Switch Proxy responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_306 extends Requests_Exception_HTTP
+class _306 extends \Requests\Exception\HTTP
 {
 
     /**

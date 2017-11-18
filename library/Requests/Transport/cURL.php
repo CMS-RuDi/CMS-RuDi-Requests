@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Transport;
+
 /**
  * cURL HTTP transport
  *
@@ -13,7 +15,7 @@
  * @package Requests
  * @subpackage Transport
  */
-class Requests_Transport_cURL implements Requests_Transport
+class cURL implements \Requests\Transport
 {
 
     const CURL_7_10_5 = 0x070A05;
@@ -57,7 +59,7 @@ class Requests_Transport_cURL implements Requests_Transport
     /**
      * Hook dispatcher instance
      *
-     * @var Requests_Hooks
+     * @var \Requests\Hooks
      */
     protected $hooks;
 
@@ -127,7 +129,7 @@ class Requests_Transport_cURL implements Requests_Transport
     /**
      * Perform a request
      *
-     * @throws Requests_Exception On a cURL error (`curlerror`)
+     * @throws \Requests\Exception On a cURL error (`curlerror`)
      *
      * @param string $url URL to request
      * @param array $headers Associative array of request headers
@@ -187,7 +189,7 @@ class Requests_Transport_cURL implements Requests_Transport
         $this->process_response($response, $options);
 
         // Need to remove the $this reference from the curl handle.
-        // Otherwise Requests_Transport_cURL wont be garbage collected and the curl_close() will never be called.
+        // Otherwise \Requests\Transport\cURL wont be garbage collected and the curl_close() will never be called.
         curl_setopt($this->handle, CURLOPT_HEADERFUNCTION, null);
         curl_setopt($this->handle, CURLOPT_WRITEFUNCTION, null);
 
@@ -199,7 +201,7 @@ class Requests_Transport_cURL implements Requests_Transport
      *
      * @param array $requests Request data
      * @param array $options Global options
-     * @return array Array of Requests_Response objects (may contain Requests_Exception or string responses as well)
+     * @return array Array of \Requests\Response objects (may contain \Requests\Exception or string responses as well)
      */
     public function request_multiple($requests, $options)
     {
@@ -252,8 +254,8 @@ class Requests_Transport_cURL implements Requests_Transport
                 if ( CURLE_OK !== $done['result'] ) {
                     //get error string for handle.
                     $reason          = curl_error($done['handle']);
-                    $exception       = new Requests_Exception_Transport_cURL(
-                            $reason, Requests_Exception_Transport_cURL::EASY, $done['handle'], $done['result']
+                    $exception       = new \Requests\Exception\Transport\cURL(
+                            $reason, \Requests\Exception\Transport\cURL::EASY, $done['handle'], $done['result']
                     );
                     $responses[$key] = $exception;
                     $options['hooks']->dispatch('transport.internal.parse_error', array( &$responses[$key], $requests[$key] ));
@@ -439,7 +441,7 @@ class Requests_Transport_cURL implements Requests_Transport
                     'cURL error %s: %s', curl_errno($this->handle), curl_error($this->handle)
             );
 
-            throw new Requests_Exception($error, 'curlerror', $this->handle);
+            throw new \Requests\Exception($error, 'curlerror', $this->handle);
         }
 
         $this->info = curl_getinfo($this->handle);

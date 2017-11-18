@@ -148,10 +148,10 @@ class Requests
             return;
         }
 
-        $file = str_replace('_', '/', $class);
+        $file = str_replace('\\', '/', $class);
 
-        if ( file_exists(dirname(__FILE__) . '/' . $file . '.php') ) {
-            require_once(dirname(__FILE__) . '/' . $file . '.php');
+        if ( file_exists(__DIR__ . '/' . $file . '.php') ) {
+            require_once(__DIR__ . '/' . $file . '.php');
         }
     }
 
@@ -168,14 +168,14 @@ class Requests
     /**
      * Register a transport
      *
-     * @param string $transport Transport class to add, must support the Requests_Transport interface
+     * @param string $transport Transport class to add, must support the \Requests\Transport interface
      */
     public static function add_transport($transport)
     {
         if ( empty(self::$transports) ) {
             self::$transports = array(
-                'Requests_Transport_cURL',
-                'Requests_Transport_fsockopen',
+                '\\Requests\\Transport\\cURL',
+                '\\Requests\\Transport\\fsockopen',
             );
         }
 
@@ -185,8 +185,8 @@ class Requests
     /**
      * Get a working transport
      *
-     * @throws Requests_Exception If no valid transport is found (`notransport`)
-     * @return Requests_Transport
+     * @throws \Requests\Exception If no valid transport is found (`notransport`)
+     * @return \Requests\Transport
      */
     protected static function get_transport($capabilities = array())
     {
@@ -204,8 +204,8 @@ class Requests
 
         if ( empty(self::$transports) ) {
             self::$transports = array(
-                'Requests_Transport_cURL',
-                'Requests_Transport_fsockopen',
+                '\\Requests\\Transport\\cURL',
+                '\\Requests\\Transport\\fsockopen',
             );
         }
 
@@ -224,7 +224,7 @@ class Requests
         }
 
         if ( self::$transport[$cap_string] === null ) {
-            throw new Requests_Exception('No working transports found', 'notransport', self::$transports);
+            throw new \Requests\Exception('No working transports found', 'notransport', self::$transports);
         }
 
         return new self::$transport[$cap_string]();
@@ -235,7 +235,7 @@ class Requests
      * @param string $url
      * @param array $headers
      * @param array $options
-     * @return Requests_Response
+     * @return \Requests\Response
      */
 
     /**
@@ -278,7 +278,7 @@ class Requests
      * @param array $headers
      * @param array $data
      * @param array $options
-     * @return Requests_Response
+     * @return \Requests\Response
      */
 
     /**
@@ -347,9 +347,9 @@ class Requests
      *    (string|boolean, default: false)
      * - `auth`: Authentication handler or array of user/password details to use
      *    for Basic authentication
-     *    (Requests_Auth|array|boolean, default: false)
+     *    (Requests\Auth|array|boolean, default: false)
      * - `proxy`: Proxy details to use for proxy by-passing and authentication
-     *    (Requests_Proxy|array|string|boolean, default: false)
+     *    (\Requests\Proxy|array|string|boolean, default: false)
      * - `max_bytes`: Limit for the response body size.
      *    (integer|boolean, default: false)
      * - `idn`: Enable IDN parsing
@@ -357,9 +357,9 @@ class Requests
      * - `transport`: Custom transport. Either a class name, or a
      *    transport object. Defaults to the first working transport from
      *    {@see getTransport()}
-     *    (string|Requests_Transport, default: {@see getTransport()})
+     *    (string|\Requests\Transport, default: {@see getTransport()})
      * - `hooks`: Hooks handler.
-     *    (Requests_Hooker, default: new Requests_Hooks())
+     *    (\Requests\Hooker, default: new \Requests\Hooks())
      * - `verify`: Should we verify SSL certificates? Allows passing in a custom
      *    certificate file as a string. (Using true uses the system-wide root
      *    certificate store instead, but this may have different behaviour
@@ -371,14 +371,14 @@ class Requests
      *    (string, one of 'query' or 'body', default: 'query' for
      *    HEAD/GET/DELETE, 'body' for POST/PUT/OPTIONS/PATCH)
      *
-     * @throws Requests_Exception On invalid URLs (`nonhttp`)
+     * @throws \Requests\Exception On invalid URLs (`nonhttp`)
      *
      * @param string $url URL to request
      * @param array $headers Extra headers to send with the request
      * @param array|null $data Data to send either as a query string for GET/HEAD requests, or in the body for POST requests
      * @param string $type HTTP request type (use Requests constants)
      * @param array $options Options for the request (see description for more information)
-     * @return Requests_Response
+     * @return \Requests\Response
      */
     public static function request($url, $headers = array(), $data = array(), $type = self::GET, $options = array())
     {
@@ -435,7 +435,7 @@ class Requests
      *    parameter to {@see Requests::request}
      *    (string, default: `Requests::GET`)
      * - `cookies`: Associative array of cookie name to value, or cookie jar.
-     *    (array|Requests_Cookie_Jar)
+     *    (array|\Requests\Cookie\Jar)
      *
      * If the `$options` parameter is specified, individual requests will
      * inherit options from it. This can be used to use a single hooking system,
@@ -444,14 +444,14 @@ class Requests
      * In addition, the `$options` parameter takes the following global options:
      *
      * - `complete`: A callback for when a request is complete. Takes two
-     *    parameters, a Requests_Response/Requests_Exception reference, and the
+     *    parameters, a \Requests\Response/Requests\Exception reference, and the
      *    ID from the request array (Note: this can also be overridden on a
      *    per-request basis, although that's a little silly)
      *    (callback)
      *
      * @param array $requests Requests data (see description for more information)
      * @param array $options Global and default options (see {@see Requests::request})
-     * @return array Responses (either Requests_Response or a Requests_Exception object)
+     * @return array Responses (either \Requests\Response or a Requests\Exception object)
      */
     public static function request_multiple($requests, $options = array())
     {
@@ -602,40 +602,40 @@ class Requests
     protected static function set_defaults(&$url, &$headers, &$data, &$type, &$options)
     {
         if ( !preg_match('/^http(s)?:\/\//i', $url, $matches) ) {
-            throw new Requests_Exception('Only HTTP(S) requests are handled.', 'nonhttp', $url);
+            throw new \Requests\Exception('Only HTTP(S) requests are handled.', 'nonhttp', $url);
         }
 
         if ( empty($options['hooks']) ) {
-            $options['hooks'] = new Requests_Hooks();
+            $options['hooks'] = new \Requests\Hooks();
         }
 
         if ( is_array($options['auth']) ) {
-            $options['auth'] = new Requests_Auth_Basic($options['auth']);
+            $options['auth'] = new \Requests\Auth\Basic($options['auth']);
         }
         if ( $options['auth'] !== false ) {
             $options['auth']->register($options['hooks']);
         }
 
         if ( is_string($options['proxy']) || is_array($options['proxy']) ) {
-            $options['proxy'] = new Requests_Proxy_HTTP($options['proxy']);
+            $options['proxy'] = new \Requests\Proxy\HTTP($options['proxy']);
         }
         if ( $options['proxy'] !== false ) {
             $options['proxy']->register($options['hooks']);
         }
 
         if ( is_array($options['cookies']) ) {
-            $options['cookies'] = new Requests_Cookie_Jar($options['cookies']);
+            $options['cookies'] = new \Requests\Cookie\Jar($options['cookies']);
         }
         elseif ( empty($options['cookies']) ) {
-            $options['cookies'] = new Requests_Cookie_Jar();
+            $options['cookies'] = new \Requests\Cookie\Jar();
         }
         if ( $options['cookies'] !== false ) {
             $options['cookies']->register($options['hooks']);
         }
 
         if ( $options['idn'] !== false ) {
-            $iri       = new Requests_IRI($url);
-            $iri->host = Requests_IDNAEncoder::encode($iri->ihost);
+            $iri       = new \Requests\IRI($url);
+            $iri->host = \Requests\IDNAEncoder::encode($iri->ihost);
             $url       = $iri->uri;
         }
 
@@ -655,20 +655,20 @@ class Requests
     /**
      * HTTP response parser
      *
-     * @throws Requests_Exception On missing head/body separator (`requests.no_crlf_separator`)
-     * @throws Requests_Exception On missing head/body separator (`noversion`)
-     * @throws Requests_Exception On missing head/body separator (`toomanyredirects`)
+     * @throws \Requests\Exception On missing head/body separator (`requests.no_crlf_separator`)
+     * @throws \Requests\Exception On missing head/body separator (`noversion`)
+     * @throws \Requests\Exception On missing head/body separator (`toomanyredirects`)
      *
      * @param string $headers Full response text including headers and body
      * @param string $url Original request URL
      * @param array $req_headers Original $headers array passed to {@link request()}, in case we need to follow redirects
      * @param array $req_data Original $data array passed to {@link request()}, in case we need to follow redirects
      * @param array $options Original $options array passed to {@link request()}, in case we need to follow redirects
-     * @return Requests_Response
+     * @return \Requests\Response
      */
     protected static function parse_response($headers, $url, $req_headers, $req_data, $options)
     {
-        $return = new Requests_Response();
+        $return = new \Requests\Response();
 
         if ( !$options['blocking'] ) {
             return $return;
@@ -680,7 +680,7 @@ class Requests
         if ( !$options['filename'] ) {
             if ( ($pos = strpos($headers, "\r\n\r\n")) === false ) {
                 // Crap!
-                throw new Requests_Exception('Missing header/body separator', 'requests.no_crlf_separator');
+                throw new \Requests\Exception('Missing header/body separator', 'requests.no_crlf_separator');
             }
 
             $headers      = substr($return->raw, 0, $pos);
@@ -698,7 +698,7 @@ class Requests
         preg_match('#^HTTP/(1\.\d)[ \t]+(\d+)#i', array_shift($headers), $matches);
 
         if ( empty($matches) ) {
-            throw new Requests_Exception('Response could not be parsed', 'noversion', $headers);
+            throw new \Requests\Exception('Response could not be parsed', 'noversion', $headers);
         }
 
         $return->protocol_version = (float) $matches[1];
@@ -742,7 +742,7 @@ class Requests
 
                 if ( strpos($location, 'http://') !== 0 && strpos($location, 'https://') !== 0 ) {
                     // relative redirect, for compatibility make it absolute
-                    $location = Requests_IRI::absolutize($url, $location);
+                    $location = \Requests\IRI::absolutize($url, $location);
                     $location = $location->uri;
                 }
 
@@ -761,7 +761,7 @@ class Requests
                 return $redirected;
             }
             elseif ( $options['redirected'] >= $options['redirects'] ) {
-                throw new Requests_Exception('Too many redirects', 'toomanyredirects', $return);
+                throw new \Requests\Exception('Too many redirects', 'toomanyredirects', $return);
             }
         }
 
@@ -775,12 +775,12 @@ class Requests
     /**
      * Callback for `transport.internal.parse_response`
      *
-     * Internal use only. Converts a raw HTTP response to a Requests_Response
+     * Internal use only. Converts a raw HTTP response to a \Requests\Response
      * while still executing a multiple request.
      *
      * @param string $response Full response text including headers and body (will be overwritten with Response instance)
      * @param array $request Request data as passed into {@see Requests::request_multiple()}
-     * @return null `$response` is either set to a Requests_Response instance, or a Requests_Exception object
+     * @return null `$response` is either set to a \Requests\Response instance, or a \Requests\Exception object
      */
     public static function parse_multiple(&$response, $request)
     {
@@ -791,7 +791,7 @@ class Requests
             $options  = $request['options'];
             $response = self::parse_response($response, $url, $headers, $data, $options);
         }
-        catch ( Requests_Exception $e ) {
+        catch ( \Requests\Exception $e ) {
             $response = $e;
         }
     }

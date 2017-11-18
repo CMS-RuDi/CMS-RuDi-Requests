@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 429 Too Many Requests responses
  *
@@ -13,7 +15,7 @@
  * @see https://tools.ietf.org/html/draft-nottingham-http-new-status-04
  * @package Requests
  */
-class Requests_Exception_HTTP_429 extends Requests_Exception_HTTP
+class _429 extends \Requests\Exception\HTTP
 {
 
     /**

@@ -6,8 +6,8 @@ class RequestsTest_Auth_Basic extends PHPUnit_Framework_TestCase
     public static function transportProvider()
     {
         $transports = array(
-            array( 'Requests_Transport_fsockopen' ),
-            array( 'Requests_Transport_cURL' ),
+            array( '\\Requests\\Transport\fsockopen' ),
+            array( '\\Requests\\Transport\\cURL' ),
         );
 
         return $transports;
@@ -47,7 +47,7 @@ class RequestsTest_Auth_Basic extends PHPUnit_Framework_TestCase
         }
 
         $options = array(
-            'auth'      => new Requests_Auth_Basic(array( 'user', 'passwd' )),
+            'auth'      => new \Requests\Auth\Basic(array( 'user', 'passwd' )),
             'transport' => $transport,
         );
 
@@ -70,7 +70,7 @@ class RequestsTest_Auth_Basic extends PHPUnit_Framework_TestCase
         }
 
         $options = array(
-            'auth'      => new Requests_Auth_Basic(array( 'user', 'passwd' )),
+            'auth'      => new \Requests\Auth\Basic(array( 'user', 'passwd' )),
             'transport' => $transport,
         );
 
@@ -88,11 +88,11 @@ class RequestsTest_Auth_Basic extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testMissingPassword()
     {
-        $auth = new Requests_Auth_Basic(array( 'user' ));
+        $auth = new \Requests\Auth\Basic(array( 'user' ));
     }
 
 }

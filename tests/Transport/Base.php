@@ -350,7 +350,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      * @todo This should also check that the type is "toomanyredirects"
      */
     public function testTooManyRedirects()
@@ -448,10 +448,10 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
 
         if ( !$success ) {
             if ( $code >= 400 ) {
-                $this->setExpectedException('Requests_Exception_HTTP_' . $code, '', $code);
+                $this->setExpectedException('\\Requests\\Exception\\HTTP\\_' . $code, '', $code);
             }
             elseif ( $code >= 300 && $code < 400 ) {
-                $this->setExpectedException('Requests_Exception');
+                $this->setExpectedException('\Requests\Exception');
             }
         }
         $request = Requests::get($url, array(), $options);
@@ -474,7 +474,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
 
         if ( !$success ) {
             if ( $code >= 400 || $code === 304 || $code === 305 || $code === 306 ) {
-                $this->setExpectedException('Requests_Exception_HTTP_' . $code, '', $code);
+                $this->setExpectedException('\\Requests\\Exception\\HTTP\\_' . $code, '', $code);
             }
         }
         $request = Requests::get($url, array(), $options);
@@ -496,7 +496,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Requests_Exception_HTTP_Unknown
+     * @expectedException \\Requests\\Exception\\HTTP\\Unknown
      */
     public function testStatusCodeThrowUnknown()
     {
@@ -545,12 +545,12 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
         );
 
         $request = Requests::get(httpbin('/get'), array(), $this->getOptions($options));
-        $empty   = new Requests_Response();
+        $empty   = new \Requests\Response();
         $this->assertEquals($empty, $request);
     }
 
     /**
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testBadIP()
     {
@@ -574,7 +574,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testExpiredHTTPS()
     {
@@ -587,7 +587,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testRevokedHTTPS()
     {
@@ -602,7 +602,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
     /**
      * Test that SSL fails with a bad certificate
      *
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testBadDomain()
     {
@@ -650,7 +650,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Requests_Exception
+     * @expectedException \Requests\Exception
      */
     public function testTimeout()
     {
@@ -677,7 +677,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
 
         // test1
         $this->assertNotEmpty($responses['test1']);
-        $this->assertInstanceOf('Requests_Response', $responses['test1']);
+        $this->assertInstanceOf('\\Requests\\Response', $responses['test1']);
         $this->assertEquals(200, $responses['test1']->status_code);
 
         $result = json_decode($responses['test1']->body, true);
@@ -686,7 +686,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
 
         // test2
         $this->assertNotEmpty($responses['test2']);
-        $this->assertInstanceOf('Requests_Response', $responses['test2']);
+        $this->assertInstanceOf('\\Requests\\Response', $responses['test2']);
         $this->assertEquals(200, $responses['test2']->status_code);
 
         $result = json_decode($responses['test2']->body, true);
@@ -737,7 +737,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
 
         $responses = Requests::request_multiple($requests, $this->getOptions());
         $this->assertEquals(200, $responses['success']->status_code);
-        $this->assertInstanceOf('Requests_Exception', $responses['timeout']);
+        $this->assertInstanceOf('\Requests\Exception', $responses['timeout']);
     }
 
     public function testMultipleUsingCallback()
@@ -844,7 +844,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
     {
         $mock  = $this->getMockBuilder('stdClass')->setMethods(array( 'progress' ))->getMock();
         $mock->expects($this->atLeastOnce())->method('progress');
-        $hooks = new Requests_Hooks();
+        $hooks = new \Requests\Hooks();
         $hooks->register('request.progress', array( $mock, 'progress' ));
 
         $options = array(
@@ -868,7 +868,7 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
                         $this->isType('string'), $this->logicalAnd($this->isType('array'), $this->logicalNot($this->isEmpty()))
         );
 
-        $hooks = new Requests_Hooks();
+        $hooks = new \Requests\Hooks();
         $hooks->register('curl.after_request', array( $mock, 'after_request' ));
         $hooks->register('fsockopen.after_request', array( $mock, 'after_request' ));
 

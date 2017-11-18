@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 410 Gone responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_410 extends Requests_Exception_HTTP
+class _410 extends \Requests\Exception\HTTP
 {
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 408 Request Timeout responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_408 extends Requests_Exception_HTTP
+class _408 extends \Requests\Exception\HTTP
 {
 
     /**

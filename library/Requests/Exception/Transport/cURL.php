@@ -1,6 +1,8 @@
 <?php
 
-class Requests_Exception_Transport_cURL extends Requests_Exception_Transport
+namespace Requests\Exception\Transport;
+
+class cURL extends \Requests\Exception\Transport
 {
 
     const EASY  = 'cURLEasy';

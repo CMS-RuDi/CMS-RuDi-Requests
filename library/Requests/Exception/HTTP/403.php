@@ -1,5 +1,7 @@
 <?php
 
+namespace Requests\Exception\HTTP;
+
 /**
  * Exception for 403 Forbidden responses
  *
@@ -11,7 +13,7 @@
  *
  * @package Requests
  */
-class Requests_Exception_HTTP_403 extends Requests_Exception_HTTP
+class _403 extends \Requests\Exception\HTTP
 {
 
     /**
