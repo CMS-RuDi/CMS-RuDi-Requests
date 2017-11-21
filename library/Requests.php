@@ -352,8 +352,6 @@ class Requests
      *    (\Requests\Proxy|array|string|boolean, default: false)
      * - `max_bytes`: Limit for the response body size.
      *    (integer|boolean, default: false)
-     * - `idn`: Enable IDN parsing
-     *    (boolean, default: true)
      * - `transport`: Custom transport. Either a class name, or a
      *    transport object. Defaults to the first working transport from
      *    {@see getTransport()}
@@ -551,7 +549,6 @@ class Requests
             'proxy'            => false,
             'cookies'          => false,
             'max_bytes'        => false,
-            'idn'              => true,
             'hooks'            => null,
             'transport'        => null,
             'verify'           => Requests::get_certificate_path(),
@@ -633,11 +630,13 @@ class Requests
             $options['cookies']->register($options['hooks']);
         }
 
-        if ( $options['idn'] !== false ) {
-            $iri       = new \Requests\IRI($url);
-            $iri->host = \Requests\IDNAEncoder::encode($iri->ihost);
-            $url       = $iri->uri;
+        $iri = new \Requests\IRI($url);
+
+        if ( preg_match('/[^0-9a-z-_:\/\.]/i', $iri->ihost) != 0 ) {
+            $iri->host = \Mso\IdnaConvert\IdnaConvert::encode($iri->ihost);
         }
+
+        $url = $iri->uri;
 
         // Massage the type to ensure we support it.
         $type = strtoupper($type);
