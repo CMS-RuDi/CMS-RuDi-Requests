@@ -182,6 +182,12 @@ class fsockopen implements \Requests\Transport
                     $headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
                 }
             }
+            elseif ( $options['type'] === Requests::POST ) {
+                if ( !isset($case_insensitive_headers['Content-Length']) ) {
+                    // Prevent 411 errors from some servers
+                    $headers['Content-Length'] = 0;
+                }
+            }
         }
 
         if ( !isset($case_insensitive_headers['Host']) ) {
