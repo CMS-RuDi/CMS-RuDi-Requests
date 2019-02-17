@@ -1,7 +1,7 @@
 {
-    "name": "rmccue/requests",
+    "name": "CMS-RuDi/Requests",
     "description": "A HTTP library written in PHP, for human beings.",
-    "homepage": "http://github.com/rmccue/Requests",
+    "homepage": "https://github.com/CMS-RuDi/Requests",
     "license": "ISC",
     "keywords": ["http", "idna", "iri", "ipv6", "curl", "sockets", "fsockopen"],
     "authors": [
@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": ">=5.2",
+        "php": ">=5.3",
         "mso/idna-convert" : "1.*"
     },
     "require-dev": {
