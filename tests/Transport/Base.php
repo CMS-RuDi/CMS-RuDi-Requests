@@ -972,13 +972,28 @@ abstract class RequestsTest_Transport_Base extends PHPUnit_Framework_TestCase
 
     public function testBodyDataFormat()
     {
-        $data    = array( 'test' => 'true', 'test2' => 'test' );
+        $data = array( 'test' => 'true', 'test2' => 'test' );
+
         $request = Requests::post(httpbin('/post'), array(), $data, $this->getOptions(array( 'data_format' => 'body' )));
+
         $this->assertEquals(200, $request->status_code);
 
         $result = json_decode($request->body, true);
+
         $this->assertEquals(httpbin('/post'), $result['url']);
         $this->assertEquals(array( 'test' => 'true', 'test2' => 'test' ), $result['form']);
+    }
+
+    public function testFileUploads()
+    {
+        file_put_contents($tmpfile = tempnam(sys_get_temp_dir(), 'requests'), 'some secret bytes, yo');
+
+        $request = Requests::post('http://httpbin.org/post', array(), array( 'foo' => 'bar', 'file1' => new \Requests\File($tmpfile) ), $this->getOptions());
+
+        $result = json_decode($request->body, true);
+
+        $this->assertEquals($result['files']['file1'], 'some secret bytes, yo');
+        $this->assertEquals($result['form']['foo'], 'bar');
     }
 
     public function test303GETmethod()
